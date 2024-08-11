@@ -1,5 +1,7 @@
 package com.javatechie.config;
 
+import com.javatechie.repository.UserCredentialRepository;
+import com.javatechie.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,9 +19,15 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class AuthConfig {
 
+    private final UserCredentialRepository repository;
+
+    public AuthConfig(UserCredentialRepository repository) {
+        this.repository = repository;
+    }
+
     @Bean
     public UserDetailsService userDetailsService(){
-        return new CustomUserDetailsService();
+        return new CustomUserDetailsService(repository);
     }
 
 

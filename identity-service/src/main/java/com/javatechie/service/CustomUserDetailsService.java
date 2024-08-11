@@ -1,8 +1,8 @@
-package com.javatechie.config;
+package com.javatechie.service;
 
+import com.javatechie.config.CustomUserDetails;
 import com.javatechie.entity.UserCredential;
 import com.javatechie.repository.UserCredentialRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,8 +13,12 @@ import java.util.Optional;
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private UserCredentialRepository repository;
+   // @Autowired
+    private final UserCredentialRepository repository;
+
+    public CustomUserDetailsService(UserCredentialRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
